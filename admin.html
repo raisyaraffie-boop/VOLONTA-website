@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin Pesanan — VOLONTÀ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header class="admin-header"><a class="wordmark" href="index.html">VOLONTÀ</a><span>ORDER MANAGEMENT</span></header>
+  <main class="admin-main">
+    <section class="login-panel" id="login-panel">
+      <p class="eyebrow">PRIVATE ACCESS</p><h1>Admin Pesanan</h1>
+      <p class="intro">Masuk dengan akun admin yang sudah didaftarkan untuk melihat pesanan.</p>
+      <form id="login-form" class="login-form">
+        <label for="email">Email</label><input id="email" name="email" type="email" autocomplete="username" required>
+        <label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required>
+        <button id="login-button" type="submit">MASUK</button><p id="login-message" class="message" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+    <section class="orders-panel" id="orders-panel" hidden>
+      <div class="orders-heading"><div><p class="eyebrow">VOLONTÀ / BACK OFFICE</p><h1>Pesanan</h1></div><button id="logout-button" class="secondary-button">Keluar</button></div>
+      <div class="toolbar"><label for="status-filter">Filter status</label><select id="status-filter"><option value="all">Semua pesanan</option><option value="new">Baru</option><option value="awaiting_payment">Menunggu pembayaran</option><option value="paid">Dibayar</option><option value="processing">Diproses</option><option value="shipped">Dikirim</option><option value="completed">Selesai</option><option value="rejected">Ditolak</option></select><button id="refresh-button" class="secondary-button">Muat ulang</button></div>
+      <p id="orders-message" class="message" role="status" aria-live="polite"></p>
+      <div id="orders-list" class="orders-list"></div>
+    </section>
+  </main>
+  <script src="supabase-config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

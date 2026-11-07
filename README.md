@@ -16,6 +16,17 @@ Jika project sudah menggunakan schema lama dengan moderasi `pending`, jalankan `
 
 Tabel hanya mengizinkan pengunjung membaca ulasan berstatus `approved` dan mengirim ulasan baru berstatus `approved`. Pengunjung tidak dapat mengubah atau menghapus ulasan melalui website.
 
+## Pesanan dan halaman admin
+
+Checkout menyimpan pesanan ke tabel `orders`, lalu membuka WhatsApp dengan nomor pesanan. Jalankan ulang `supabase/schema.sql` di SQL Editor untuk membuat tabel dan kebijakan akses pesanan. Pengunjung hanya dapat membuat pesanan; membaca dan mengubah pesanan dibatasi ke akun yang tercatat di `order_admins`.
+
+1. Buat akun admin di Supabase Dashboard → Authentication → Users (gunakan invite atau buat user dengan email admin). Matikan sign-up publik jika tidak diperlukan.
+2. Salin UUID user tersebut dari daftar Users.
+3. Di SQL Editor, jalankan `insert into public.order_admins (user_id) values ('UUID-USER-ADMIN');` dengan UUID akun admin.
+4. Buka `/admin.html` di website dan masuk menggunakan email/password akun tersebut.
+
+Di halaman admin, ubah `Baru` ke `Menunggu pembayaran` setelah stok dan ongkir dikonfirmasi. Setelah pembayaran diterima, ubah ke `Dibayar`, lalu `Diproses`, `Dikirim` (isi nomor resi), dan `Selesai`. Subtotal ditampilkan ulang dari katalog di admin; verifikasi stok dan ongkir sebelum mengirim total akhir ke pembeli.
+
 ## Fitur website
 
 - Desain Dark Luxury responsif, katalog produk, panduan ukuran S–XL, keranjang, dan checkout WhatsApp.
