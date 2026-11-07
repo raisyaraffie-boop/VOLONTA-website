@@ -18,14 +18,16 @@ Tabel hanya mengizinkan pengunjung membaca ulasan berstatus `approved` dan mengi
 
 ## Pesanan dan halaman admin
 
-Checkout menyimpan pesanan ke tabel `orders`, lalu membuka WhatsApp dengan nomor pesanan. Jalankan ulang `supabase/schema.sql` di SQL Editor untuk membuat tabel dan kebijakan akses pesanan. Pengunjung hanya dapat membuat pesanan; membaca dan mengubah pesanan dibatasi ke akun yang tercatat di `order_admins`.
+Checkout mewajibkan akun pembeli. Pembeli dapat mendaftar/masuk melalui `account.html`, lalu checkout menyimpan pesanan ke tabel `orders` dengan UUID akun dan membuka WhatsApp dengan nomor pesanan. Di halaman akun, pembeli dapat melihat status dan nomor resi pesanan miliknya. Jalankan ulang `supabase/schema.sql` di SQL Editor untuk menambahkan kolom akun dan kebijakan akses pesanan. Akun pembeli hanya dapat membaca pesanan miliknya sendiri; akun di `order_admins` tetap dapat mengelola seluruh pesanan.
 
-1. Buat akun admin di Supabase Dashboard → Authentication → Users (gunakan invite atau buat user dengan email admin). Matikan sign-up publik jika tidak diperlukan.
+1. Aktifkan pendaftaran email/password di Supabase Authentication → Settings agar pembeli dapat membuat akun. Buat akun admin di Authentication → Users (gunakan invite atau buat user dengan email admin); akun baru tidak memperoleh akses admin secara otomatis.
 2. Salin UUID user tersebut dari daftar Users.
 3. Di SQL Editor, jalankan `insert into public.order_admins (user_id) values ('UUID-USER-ADMIN');` dengan UUID akun admin.
 4. Buka `/admin.html` di website dan masuk menggunakan email/password akun tersebut.
 
 Di halaman admin, ubah `Baru` ke `Menunggu pembayaran` setelah stok dan ongkir dikonfirmasi. Setelah pembayaran diterima, ubah ke `Dibayar`, lalu `Diproses`, `Dikirim` (isi nomor resi), dan `Selesai`. Subtotal ditampilkan ulang dari katalog di admin; verifikasi stok dan ongkir sebelum mengirim total akhir ke pembeli.
+
+Untuk langsung mengaktifkan akun tanpa menunggu email, matikan **Confirm email** pada Supabase Dashboard → Authentication → Sign In / Providers → Email. Dengan konfirmasi email nonaktif, Supabase otomatis menandai email akun baru sebagai terkonfirmasi; pembeli dapat langsung masuk setelah daftar. Alamat email yang belum diverifikasi tidak dicek kepemilikannya.
 
 ## Fitur website
 
