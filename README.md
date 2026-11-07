@@ -1,18 +1,23 @@
 # VOLONTÀ — Wear the Time
 
-Versi website untuk evaluasi, berangkat dari desain sebelumnya yang diberikan.
+Website statis untuk GitHub Pages. Foto tersedia di `assets/`.
 
-## Membuka website
+## Ulasan terbuka (memerlukan Supabase)
 
-Buka `index.html` di browser. Foto produk dan editorial sudah disertakan di folder `assets`. Koneksi internet diperlukan untuk memuat Google Fonts.
+Siapa pun dapat mengirim ulasan tanpa kode pembelian. Supaya semua pengunjung melihat daftar ulasan yang sama, data disimpan di Supabase. Kiriman baru berstatus `pending`; admin menyetujui isinya sebelum tampil publik.
 
-## Fitur
+1. Buat project Supabase.
+2. Jalankan `supabase/schema.sql` melalui Dashboard → SQL Editor.
+3. Isi `supabase-config.js` dengan Project URL dan Publishable key. Publishable key boleh masuk ke website publik dengan RLS aktif; jangan pernah pakai Secret/service-role key di frontend.
+4. Commit dan push file ke GitHub. Pastikan GitHub Pages menggunakan branch `main` dan folder `/(root)`.
+5. Untuk memoderasi, jalankan query daftar pending yang dicantumkan di `supabase/schema.sql`; ubah status ulasan yang layak menjadi `approved`.
 
-- Desain Dark Luxury responsif dengan hero editorial, katalog, Tentang Kami, ulasan, pengiriman, retur/refund, kemasan, dan kontak.
-- Pilihan ukuran S–XL (wajib dipilih sebelum menambahkan), panduan ukuran tiap produk, dan keranjang yang tetap berfungsi jika penyimpanan lokal browser tidak tersedia.
-- Checkout menyiapkan ringkasan pesanan ke WhatsApp `081390100773`.
-- Instagram `@volonta.id` dan email `volonta.id@gmail.com`.
-- Hard Box eksklusif dan Certificate Artist Edition.
+Tabel hanya mengizinkan pengunjung membaca ulasan berstatus `approved` dan mengirim ulasan baru berstatus `pending`. Pengunjung tidak dapat menyetujui atau menghapus ulasan melalui website.
 
-Website ini prototipe front-end. Estimasi ukuran, TB/BB, pengiriman, dan kebijakan layanan merupakan draf yang perlu ditinjau sebelum digunakan untuk menerima pesanan.
+## Fitur website
 
+- Desain Dark Luxury responsif, katalog produk, panduan ukuran S–XL, keranjang, dan checkout WhatsApp.
+- Pengiriman, retur/refund, Hard Box, Certificate Artist Edition, kontak Instagram dan email.
+- Ulasan bersama lintas pengunjung setelah Supabase dikonfigurasi.
+
+Estimasi ukuran dan kebijakan layanan di halaman merupakan draf yang perlu ditinjau sebelum dipublikasikan.

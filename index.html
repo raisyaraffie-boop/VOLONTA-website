@@ -68,6 +68,20 @@
       </div>
     </section>
 
+    <section class="reviews-section" id="reviews">
+      <div class="reviews-layout">
+        <div class="reviews-intro"><p class="eyebrow">FROM OUR COMMUNITY</p><h3>Worn, lived in,<br>and loved.</h3><p>Bagikan pengalamanmu dengan VOLONTÀ. Ulasan yang disetujui akan tampil untuk semua pengunjung.</p></div>
+        <form class="review-form" id="review-form">
+          
+          <label for="review-name">Nama yang ditampilkan</label><input id="review-name" name="reviewerName" type="text" maxlength="60" placeholder="Nama" required>
+          <label for="review-product">Produk yang diulas</label><select id="review-product" name="product" required><option value="">Pilih produk</option><option value="denim">Denim Jacket</option><option value="blouson">Asymmetric Blouson</option><option value="leather">Leather Jacket</option></select>
+          <label for="review-rating">Penilaian</label><select id="review-rating" name="rating" required><option value="">Pilih rating</option><option value="5">★★★★★ — Sangat suka</option><option value="4">★★★★ — Suka</option><option value="3">★★★ — Cukup</option><option value="2">★★ — Kurang</option><option value="1">★ — Tidak puas</option></select>
+          <label for="review-message">Ulasan</label><textarea id="review-message" name="message" rows="4" maxlength="1200" placeholder="Ceritakan pengalamanmu dengan produk ini" required></textarea>
+          <button type="submit">KIRIM ULASAN</button><small>Nama dan ulasan akan terlihat publik. Ulasan ditinjau admin sebelum ditampilkan.</small><p class="review-status" id="review-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+      <div class="reviews-list" id="reviews-list" aria-live="polite"><p class="reviews-empty">Memuat ulasan…</p></div>
+    </section>
     <section class="info-section" id="shipping">
       <p class="eyebrow">CUSTOMER CARE</p><h2>Shipping & Order Information</h2>
       <div class="info-grid">
@@ -112,7 +126,13 @@
   </aside>
   <div class="overlay" id="overlay"></div>
   <div class="guide-modal" id="guide-modal" aria-hidden="true"><div class="guide-card"><button class="guide-close" id="guide-close" aria-label="Tutup">×</button><p class="eyebrow">VOLONTÀ FIT GUIDE</p><h2 id="guide-title">SIZE GUIDE</h2><p class="guide-subtitle">Ukuran produk dalam sentimeter (cm). Estimasi TB/BB adalah panduan awal; bentuk tubuh dan preferensi fit dapat memengaruhi pilihan.</p><div id="guide-table"></div><p class="guide-note">Cara ukur: lingkar dada diukur mengelilingi bagian dada terlebar; lebar bahu dari ujung bahu ke ujung bahu; panjang jaket dari titik bahu dekat leher ke ujung bawah jaket. Jika berada di antara dua ukuran, pertimbangkan ukuran lebih besar untuk fit lebih longgar.</p></div></div>
+  <script src="supabase-config.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
 

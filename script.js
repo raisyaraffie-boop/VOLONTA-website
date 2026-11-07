@@ -47,11 +47,51 @@ document.querySelectorAll(".main-nav a").forEach(a=>a.addEventListener("click",(
 function openGuide(key){const g=sizes[key];document.getElementById("guide-title").textContent=g.title+" — SIZE GUIDE";document.getElementById("guide-table").innerHTML=`<div class="table-scroll"><table><thead><tr><th>Size</th><th>Lingkar dada</th><th>Lebar bahu</th><th>Panjang</th><th>TB</th><th>BB</th></tr></thead><tbody>${g.rows.map(r=>`<tr>${r.map(v=>`<td>${v}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;document.getElementById("guide-modal").classList.add("open");document.getElementById("guide-modal").setAttribute("aria-hidden","false");}
 document.querySelectorAll("[data-guide]").forEach(b=>b.addEventListener("click",()=>openGuide(b.dataset.guide)));
 document.getElementById("guide-close").addEventListener("click",()=>{document.getElementById("guide-modal").classList.remove("open");document.getElementById("guide-modal").setAttribute("aria-hidden","true");});
-const reviewForm=document.getElementById("review-form"),reviewList=document.getElementById("reviews-list");
-function escapeHTML(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function renderReviews(){const reviews=JSON.parse(localStorage.getItem("volonta-reviews")||"[]");reviewList.innerHTML=reviews.length?reviews.map(r=>`<article class="review-card"><div class="review-stars">${"★".repeat(r.rating)}${"☆".repeat(5-r.rating)}</div><strong>${escapeHTML(r.name)}</strong><span>${escapeHTML(r.product)}</span><p>${escapeHTML(r.message)}</p></article>`).join(""):'<p class="reviews-empty">Belum ada ulasan. Jadilah yang pertama berbagi pengalaman!</p>';}
-reviewForm.addEventListener("submit",e=>{e.preventDefault();const reviews=JSON.parse(localStorage.getItem("volonta-reviews")||"[]");reviews.unshift({name:reviewForm.name.value.trim(),rating:Number(reviewForm.rating.value),product:reviewForm.product.value,message:reviewForm.message.value.trim()});localStorage.setItem("volonta-reviews",JSON.stringify(reviews));reviewForm.reset();renderReviews();});
-const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("is-visible");observer.unobserve(entry.target);}}),{threshold:.12});
+const reviewForm=document.getElementById("review-form");
+const reviewList=document.getElementById("reviews-list");
+const reviewStatus=document.getElementById("review-status");
+const reviewConfig=window.VOLONTA_SUPABASE_CONFIG||{};
+const productLabels={denim:"Denim Jacket",blouson:"Asymmetric Blouson",leather:"Leather Jacket"};
+function setReviewStatus(message,type=""){reviewStatus.textContent=message;reviewStatus.className=`review-status ${type}`;}
+function renderPublicReviews(reviews){
+ reviewList.replaceChildren();
+ if(!reviews.length){const empty=document.createElement("p");empty.className="reviews-empty";empty.textContent="Belum ada ulasan.";reviewList.append(empty);return;}
+ for(const item of reviews){
+  const card=document.createElement("article");card.className="review-card";
+  const stars=document.createElement("div");stars.className="review-stars";stars.textContent="★".repeat(item.rating)+"☆".repeat(5-item.rating);
+  const name=document.createElement("strong");name.textContent=item.reviewer_name;
+  const meta=document.createElement("span");meta.textContent=`${productLabels[item.product_key]||"Produk VOLONTÀ"} · Ulasan komunitas`;
+  const body=document.createElement("p");body.textContent=item.body;
+  card.append(stars,name,meta,body);reviewList.append(card);
+ }
+}
+function reviewApiReady(){return Boolean(reviewConfig.url&&reviewConfig.publishableKey&&!reviewConfig.url.includes("YOUR_PROJECT"));}
+async function loadPublicReviews(){
+ if(!reviewApiReady()){reviewList.innerHTML='<p class="reviews-empty">Ulasan publik akan tampil setelah database dihubungkan.</p>';return;}
+ try{
+  const base=reviewConfig.url.replace(/\/$/,"");
+  const response=await fetch(`${base}/rest/v1/reviews?select=reviewer_name,product_key,rating,body,created_at&status=eq.approved&order=created_at.desc&limit=30`,{headers:{apikey:reviewConfig.publishableKey,Authorization:`Bearer ${reviewConfig.publishableKey}`}});
+  if(!response.ok)throw new Error("Tidak dapat memuat ulasan.");
+  renderPublicReviews(await response.json());
+ }catch(error){reviewList.innerHTML='<p class="reviews-empty">Ulasan belum dapat dimuat. Silakan coba lagi nanti.</p>';}
+}
+reviewForm.addEventListener("submit",async event=>{
+ event.preventDefault();
+ if(!reviewApiReady()){setReviewStatus("Ulasan belum aktif. Database VOLONTÀ belum dihubungkan.","error");return;}
+ const button=reviewForm.querySelector('button[type="submit"]');button.disabled=true;setReviewStatus("Mengirim ulasan…");
+ const payload={reviewer_name:reviewForm.elements.reviewerName.value.trim(),product_key:reviewForm.elements.product.value,rating:Number(reviewForm.elements.rating.value),body:reviewForm.elements.message.value.trim(),status:"pending"};
+ try{
+  const response=await fetch(`${reviewConfig.url.replace(/\/$/,"")}/rest/v1/reviews`,{method:"POST",headers:{"Content-Type":"application/json",Prefer:"return=minimal",apikey:reviewConfig.publishableKey,Authorization:`Bearer ${reviewConfig.publishableKey}`},body:JSON.stringify(payload)});
+  if(!response.ok)throw new Error("Ulasan gagal dikirim. Periksa koneksi lalu coba lagi.");
+  reviewForm.reset();setReviewStatus("Terima kasih! Ulasan diterima dan akan tampil setelah disetujui admin.","success"); }catch(error){setReviewStatus(error.message||"Ulasan gagal dikirim. Coba lagi.","error");}
+ finally{button.disabled=false;}
+});
+loadPublicReviews();const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("is-visible");observer.unobserve(entry.target);}}),{threshold:.12});
 document.querySelectorAll(".section,.trust-strip,.about-section,.reviews-section,.info-section,.policy-section,.packaging-section").forEach(el=>{el.classList.add("reveal");observer.observe(el);});
-save();renderReviews();
+save();
+
+
+
+
+
 

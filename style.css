@@ -26,3 +26,5 @@ footer{background:#050505;border-top:1px solid #444}footer .wordmark{color:#eee}
 .marquee{overflow:hidden;white-space:nowrap;background:#0a0a0a;border-top:1px solid #333;border-bottom:1px solid #333;padding:19px 0;color:#bdbdbd;font-family:"Playfair Display",serif;font-size:17px;letter-spacing:.35em}.marquee div{display:inline-block;min-width:200%;animation:marqueeMove 28s linear infinite}.marquee span{padding:0 35px;color:#777}@keyframes marqueeMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 .size-error{grid-column:1/-1;margin:0;color:#e0a3a3;font-size:10px;line-height:1.4}.size-error[hidden]{display:none}
+
+.review-status{margin:3px 0 0;font-size:11px;line-height:1.6;color:#aaa}.review-status.error{color:#e69a9a}.review-status.success{color:#b7d9bc}.review-form button:disabled{opacity:.6;cursor:wait}.reviews-empty{grid-column:1/-1}
