@@ -79,11 +79,11 @@ reviewForm.addEventListener("submit",async event=>{
  event.preventDefault();
  if(!reviewApiReady()){setReviewStatus("Ulasan belum aktif. Database VOLONTÀ belum dihubungkan.","error");return;}
  const button=reviewForm.querySelector('button[type="submit"]');button.disabled=true;setReviewStatus("Mengirim ulasan…");
- const payload={reviewer_name:reviewForm.elements.reviewerName.value.trim(),product_key:reviewForm.elements.product.value,rating:Number(reviewForm.elements.rating.value),body:reviewForm.elements.message.value.trim(),status:"pending"};
+ const payload={reviewer_name:reviewForm.elements.reviewerName.value.trim(),product_key:reviewForm.elements.product.value,rating:Number(reviewForm.elements.rating.value),body:reviewForm.elements.message.value.trim(),status:"approved"};
  try{
   const response=await fetch(`${reviewConfig.url.replace(/\/$/,"")}/rest/v1/reviews`,{method:"POST",headers:{"Content-Type":"application/json",Prefer:"return=minimal",apikey:reviewConfig.publishableKey,Authorization:`Bearer ${reviewConfig.publishableKey}`},body:JSON.stringify(payload)});
   if(!response.ok)throw new Error("Ulasan gagal dikirim. Periksa koneksi lalu coba lagi.");
-  reviewForm.reset();setReviewStatus("Terima kasih! Ulasan diterima dan akan tampil setelah disetujui admin.","success"); }catch(error){setReviewStatus(error.message||"Ulasan gagal dikirim. Coba lagi.","error");}
+  reviewForm.reset();setReviewStatus("Terima kasih! Ulasan Anda sudah terkirim dan langsung tampil.","success");loadPublicReviews(); }catch(error){setReviewStatus(error.message||"Ulasan gagal dikirim. Coba lagi.","error");}
  finally{button.disabled=false;}
 });
 loadPublicReviews();const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("is-visible");observer.unobserve(entry.target);}}),{threshold:.12});
