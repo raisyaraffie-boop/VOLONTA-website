@@ -28,17 +28,19 @@ function renderCart(){
  host.querySelectorAll("[data-remove]").forEach(b=>b.addEventListener("click",()=>{cart.splice(Number(b.dataset.remove),1);save();}));
 }
 function toggleCart(open){document.getElementById("cart-panel").classList.toggle("open",open);document.getElementById("cart-panel").setAttribute("aria-hidden",String(!open));document.getElementById("overlay").classList.toggle("show",open);}
+function showCheckoutMessage(text,type="error"){const node=document.getElementById("checkout-message");node.textContent=text;node.className=`checkout-message ${type}`;node.hidden=!text;}
 document.querySelectorAll(".add-button").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.product;const select=document.getElementById(`size-${k}`);const error=select.closest(".product-actions").querySelector(".size-error");if(!select.value){if(error)error.hidden=false;select.setAttribute("aria-invalid","true");select.focus();return;}if(error)error.hidden=true;select.removeAttribute("aria-invalid");const existing=cart.find(x=>x.product===k&&x.size===select.value);if(existing)existing.qty++;else cart.push({product:k,size:select.value,qty:1});save();toggleCart(true);}));
 document.querySelectorAll(".size-select").forEach(select=>select.addEventListener("change",()=>{select.removeAttribute("aria-invalid");const error=select.closest(".product-actions").querySelector(".size-error");if(error)error.hidden=true;}));
 document.querySelector(".cart-trigger").addEventListener("click",()=>toggleCart(true));
 document.getElementById("close-cart").addEventListener("click",()=>toggleCart(false));
 document.getElementById("overlay").addEventListener("click",()=>toggleCart(false));
 document.getElementById("checkout").addEventListener("click",async()=>{
- if(!cart.length){alert("Keranjang masih kosong.");return;}
+ showCheckoutMessage("");
+ if(!cart.length){showCheckoutMessage("Keranjang masih kosong. Tambahkan produk sebelum checkout.");return;}
  const customerSession=await VolontaAuth.session();
  if(!customerSession){localStorage.setItem("volonta-checkout-draft",JSON.stringify({name:document.getElementById("buyer-name").value,phone:document.getElementById("buyer-phone").value,address:document.getElementById("buyer-address").value}));window.location.href="account.html?next=checkout";return;}
  const name=document.getElementById("buyer-name").value.trim(),phone=document.getElementById("buyer-phone").value.trim(),address=document.getElementById("buyer-address").value.trim();
- if(!name||!phone||!address){alert("Mohon lengkapi nama, nomor HP, dan alamat pengiriman.");return;}
+ if(!name||!phone||!address){showCheckoutMessage("Mohon lengkapi nama, nomor HP, dan alamat pengiriman.");return;}
  const lines=cart.map(item=>`• ${catalog[item.product].name} | Size ${item.size} | Qty ${item.qty} | ${rupiah(catalog[item.product].price*item.qty)}`);
  const total=cart.reduce((s,item)=>s+catalog[item.product].price*item.qty,0);
  const orderNumber=`VLT-${new Date().toISOString().slice(2,10).replaceAll("-","")}-${crypto.randomUUID().slice(0,6).toUpperCase()}`;
@@ -49,12 +51,13 @@ document.getElementById("checkout").addEventListener("click",async()=>{
  (async()=>{try{
   if(!reviewApiReady())throw new Error("Database pesanan belum dikonfigurasi. Silakan hubungi admin melalui WhatsApp.");
   const response=await fetch(`${reviewConfig.url.replace(/\/$/,"")}/rest/v1/orders`,{method:"POST",headers:{"Content-Type":"application/json",Prefer:"return=minimal",apikey:reviewConfig.publishableKey,Authorization:`Bearer ${customerSession.access_token}`},body:JSON.stringify(payload)});
-  if(!response.ok)throw new Error("Pesanan belum berhasil disimpan. Coba lagi beberapa saat.");
+  if(!response.ok){let detail="";try{const body=await response.json();detail=body.message||body.details||body.hint||"";}catch{}throw new Error(detail?`Pesanan gagal disimpan: ${detail}`:"Pesanan belum berhasil disimpan. Coba lagi beberapa saat.");}
   const waUrl="https://wa.me/6281390100773?text="+encodeURIComponent(msg);
-  if(waWindow)waWindow.location.replace(waUrl);else{const link=document.createElement("a");link.href=waUrl;link.target="_blank";link.rel="noopener";link.textContent="Buka WhatsApp untuk mengirim pesanan";link.className="checkout-button";link.style.display="block";link.style.textAlign="center";document.getElementById("checkout").after(link);}
+  if(waWindow)waWindow.location.replace(waUrl);
   cart=[];save();
   localStorage.removeItem("volonta-checkout-draft");
- }catch(error){if(waWindow)waWindow.close();alert(error.message||"Pesanan gagal disimpan.");}
+  window.location.href="account.html?orders=1";
+ }catch(error){if(waWindow)waWindow.close();showCheckoutMessage(error.message||"Pesanan gagal disimpan.");}
  finally{button.disabled=false;button.textContent="CHECKOUT VIA WHATSAPP";}})();
 });
 const menu=document.querySelector(".menu-toggle");menu.addEventListener("click",()=>{const nav=document.querySelector(".main-nav");nav.classList.toggle("open");menu.setAttribute("aria-expanded",String(nav.classList.contains("open")));});

@@ -1,7 +1,7 @@
 const config=window.VOLONTA_SUPABASE_CONFIG||{};
 const base=(config.url||"").replace(/\/$/,"");
 const sessionKey="volonta-admin-session";
-const statuses={new:"Baru",awaiting_payment:"Menunggu pembayaran",paid:"Dibayar",processing:"Diproses",shipped:"Dikirim",completed:"Selesai",rejected:"Ditolak"};
+const statuses={new:"Menunggu konfirmasi",awaiting_payment:"Menunggu pembayaran",paid:"Dibayar",processing:"Diproses",shipped:"Dalam pengiriman",completed:"Selesai",rejected:"Ditolak"};
 const products={denim:{name:"VOLONTÀ Denim Jacket",price:399000},blouson:{name:"VOLONTÀ Asymmetric Blouson",price:499000},leather:{name:"VOLONTÀ Leather Jacket",price:549000}};
 const loginPanel=document.getElementById("login-panel"),ordersPanel=document.getElementById("orders-panel"),loginMessage=document.getElementById("login-message"),ordersMessage=document.getElementById("orders-message"),ordersList=document.getElementById("orders-list");
 let accessToken="";

@@ -18,7 +18,7 @@ Tabel hanya mengizinkan pengunjung membaca ulasan berstatus `approved` dan mengi
 
 ## Pesanan dan halaman admin
 
-Checkout mewajibkan akun pembeli. Pembeli dapat mendaftar/masuk melalui `account.html`, lalu checkout menyimpan pesanan ke tabel `orders` dengan UUID akun dan membuka WhatsApp dengan nomor pesanan. Di halaman akun, pembeli dapat melihat status dan nomor resi pesanan miliknya. Jalankan ulang `supabase/schema.sql` di SQL Editor untuk menambahkan kolom akun dan kebijakan akses pesanan. Akun pembeli hanya dapat membaca pesanan miliknya sendiri; akun di `order_admins` tetap dapat mengelola seluruh pesanan.
+Checkout mewajibkan akun pembeli. Pembeli dapat mendaftar/masuk melalui `account.html`, lalu checkout menyimpan pesanan ke tabel `orders`, membuka WhatsApp dengan nomor pesanan, dan mengarahkan tab utama ke halaman pesanan. Pesanan baru berstatus menunggu konfirmasi admin; setelah admin mengonfirmasi dan mengubah status menjadi `shipped`, pelanggan melihat status “Dalam pengiriman”. Di halaman akun, pembeli dapat melihat status dan nomor resi pesanan miliknya. Jalankan ulang `supabase/schema.sql` di SQL Editor untuk menambahkan kolom akun dan kebijakan akses pesanan. Akun pembeli hanya dapat membaca pesanan miliknya sendiri; akun di `order_admins` tetap dapat mengelola seluruh pesanan.
 
 1. Aktifkan pendaftaran email/password di Supabase Authentication → Settings agar pembeli dapat membuat akun. Buat akun admin di Authentication → Users (gunakan invite atau buat user dengan email admin); akun baru tidak memperoleh akses admin secara otomatis.
 2. Salin UUID user tersebut dari daftar Users.
