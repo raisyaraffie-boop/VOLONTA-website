@@ -29,3 +29,4 @@ footer{background:#050505;border-top:1px solid #444}footer .wordmark{color:#eee}
 
 .review-status{margin:3px 0 0;font-size:11px;line-height:1.6;color:#aaa}.review-status.error{color:#e69a9a}.review-status.success{color:#b7d9bc}.review-form button:disabled{opacity:.6;cursor:wait}.reviews-empty{grid-column:1/-1}
 .checkout-message{margin:9px 0 0;padding:10px 12px;border:1px solid #a95b50;background:#2a1715;color:#f0b8b0;font-size:11px;line-height:1.6}.checkout-message[hidden]{display:none}
+:focus-visible{outline:2px solid #e0e0e0;outline-offset:3px}.main-nav a:focus-visible,.text-link:focus-visible,footer a:focus-visible{outline-color:#999}.guide-modal{cursor:pointer}.guide-card{cursor:auto}

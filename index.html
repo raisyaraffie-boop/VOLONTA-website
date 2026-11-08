@@ -14,8 +14,8 @@
   <div class="announcement">Gratis ongkir untuk pembelian minimum Rp500.000</div>
   <header class="site-header">
     <a class="wordmark" href="#home">VOLONTÀ</a>
-    <button class="menu-toggle" aria-label="Buka navigasi" aria-expanded="false">☰</button>
-    <nav class="main-nav">
+    <button class="menu-toggle" aria-label="Buka navigasi" aria-expanded="false" aria-controls="main-navigation">☰</button>
+    <nav class="main-nav" id="main-navigation">
       <a href="#home">Beranda</a><a href="#products">Produk</a><a href="#about">Tentang Kami</a>
       <a href="#shipping">Pengiriman</a><a href="#returns">Retur & Refund</a><a href="#reviews">Ulasan</a><a href="#contact">Kontak</a><a href="account.html">Akun & Pesanan</a>
     </nav>
@@ -38,7 +38,7 @@
 
     <div class="marquee" aria-label="Wear the Time"><div>VOLONTÀ <span>✦</span> WEAR THE TIME <span>✦</span> VOLONTÀ <span>✦</span> WEAR THE TIME <span>✦</span></div></div>
     <section class="section products-section" id="products">
-      <div class="section-heading"><div><span class="heading-line"></span><h2>Produk Pilihan</h2></div><span class="muted">THREE ESSENTIAL PIECES</span></div>
+      <div class="section-heading"><div><span class="heading-line"></span><h2>Produk Pilihan</h2></div><span class="muted">EIGHT ESSENTIAL PIECES</span></div>
       <div class="product-grid">
         <article class="product-card">
           <div class="product-image-wrap"><img src="assets/denim-jacket.jpg" alt="VOLONTÀ Denim Jacket"><span class="category">DENIM</span></div>
@@ -51,6 +51,26 @@
         <article class="product-card">
           <div class="product-image-wrap"><img src="assets/leather-jacket.jpg" alt="VOLONTÀ Leather Jacket"><span class="category">LEATHER</span></div>
           <div class="product-info"><div><h3>VOLONTÀ Leather Jacket</h3><p class="price">Rp549.000</p></div><div class="product-actions"><label class="size-label" for="size-leather">PILIH UKURAN</label><select id="size-leather" class="size-select" aria-label="Ukuran Leather Jacket"><option value="">Pilih</option><option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option></select><p class="size-error" data-size-error="leather" hidden>Pilih ukuran dulu agar bisa ditambahkan.</p><button class="add-button" data-product="leather">+ Keranjang</button><button type="button" class="size-guide-link" data-guide="leather">Panduan ukuran ↗</button></div></div>
+        </article>
+        <article class="product-card">
+          <div class="product-image-wrap"><img src="assets/obsidian-moto-jacket.jpg" alt="VOLONTÀ Obsidian Moto Jacket"><span class="category">MOTO</span></div>
+          <div class="product-info"><div><h3>VOLONTÀ Obsidian Moto Jacket</h3><p class="price">Rp459.000</p></div><div class="product-actions"><label class="size-label" for="size-obsidian">PILIH UKURAN</label><select id="size-obsidian" class="size-select" aria-label="Ukuran Obsidian Moto Jacket"><option value="">Pilih</option><option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option></select><p class="size-error" data-size-error="obsidian" hidden>Pilih ukuran dulu agar bisa ditambahkan.</p><button class="add-button" data-product="obsidian">+ Keranjang</button><button type="button" class="size-guide-link" data-guide="obsidian">Panduan ukuran ↗</button></div></div>
+        </article>
+        <article class="product-card">
+          <div class="product-image-wrap"><img src="assets/indigo-zip-bomber.jpg" alt="VOLONTÀ Indigo Zip Bomber"><span class="category">DENIM</span></div>
+          <div class="product-info"><div><h3>VOLONTÀ Indigo Zip Bomber</h3><p class="price">Rp429.000</p></div><div class="product-actions"><label class="size-label" for="size-indigo">PILIH UKURAN</label><select id="size-indigo" class="size-select" aria-label="Ukuran Indigo Zip Bomber"><option value="">Pilih</option><option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option></select><p class="size-error" data-size-error="indigo" hidden>Pilih ukuran dulu agar bisa ditambahkan.</p><button class="add-button" data-product="indigo">+ Keranjang</button><button type="button" class="size-guide-link" data-guide="indigo">Panduan ukuran ↗</button></div></div>
+        </article>
+        <article class="product-card">
+          <div class="product-image-wrap"><img src="assets/midnight-plaid-jacket.jpg" alt="VOLONTÀ Midnight Plaid Collar Jacket"><span class="category">COLLAR</span></div>
+          <div class="product-info"><div><h3>VOLONTÀ Midnight Plaid Collar Jacket</h3><p class="price">Rp399.000</p></div><div class="product-actions"><label class="size-label" for="size-midnight">PILIH UKURAN</label><select id="size-midnight" class="size-select" aria-label="Ukuran Midnight Plaid Collar Jacket"><option value="">Pilih</option><option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option></select><p class="size-error" data-size-error="midnight" hidden>Pilih ukuran dulu agar bisa ditambahkan.</p><button class="add-button" data-product="midnight">+ Keranjang</button><button type="button" class="size-guide-link" data-guide="midnight">Panduan ukuran ↗</button></div></div>
+        </article>
+        <article class="product-card">
+          <div class="product-image-wrap"><img src="assets/shadow-leather-bomber.jpg" alt="VOLONTÀ Shadow Leather Bomber"><span class="category">LEATHER</span></div>
+          <div class="product-info"><div><h3>VOLONTÀ Shadow Leather Bomber</h3><p class="price">Rp489.000</p></div><div class="product-actions"><label class="size-label" for="size-shadow">PILIH UKURAN</label><select id="size-shadow" class="size-select" aria-label="Ukuran Shadow Leather Bomber"><option value="">Pilih</option><option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option></select><p class="size-error" data-size-error="shadow" hidden>Pilih ukuran dulu agar bisa ditambahkan.</p><button class="add-button" data-product="shadow">+ Keranjang</button><button type="button" class="size-guide-link" data-guide="shadow">Panduan ukuran ↗</button></div></div>
+        </article>
+        <article class="product-card">
+          <div class="product-image-wrap"><img src="assets/coal-denim-utility.jpg" alt="VOLONTÀ Coal Denim Utility Jacket"><span class="category">DENIM</span></div>
+          <div class="product-info"><div><h3>VOLONTÀ Coal Denim Utility Jacket</h3><p class="price">Rp379.000</p></div><div class="product-actions"><label class="size-label" for="size-coal">PILIH UKURAN</label><select id="size-coal" class="size-select" aria-label="Ukuran Coal Denim Utility Jacket"><option value="">Pilih</option><option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option></select><p class="size-error" data-size-error="coal" hidden>Pilih ukuran dulu agar bisa ditambahkan.</p><button class="add-button" data-product="coal">+ Keranjang</button><button type="button" class="size-guide-link" data-guide="coal">Panduan ukuran ↗</button></div></div>
         </article>
       </div>
     </section>
@@ -74,7 +94,7 @@
         <form class="review-form" id="review-form">
           
           <label for="review-name">Nama yang ditampilkan</label><input id="review-name" name="reviewerName" type="text" maxlength="60" placeholder="Nama" required>
-          <label for="review-product">Produk yang diulas</label><select id="review-product" name="product" required><option value="">Pilih produk</option><option value="denim">Denim Jacket</option><option value="blouson">Asymmetric Blouson</option><option value="leather">Leather Jacket</option></select>
+          <label for="review-product">Produk yang diulas</label><select id="review-product" name="product" required><option value="">Pilih produk</option><option value="denim">Denim Jacket</option><option value="blouson">Asymmetric Blouson</option><option value="leather">Leather Jacket</option><option value="obsidian">Obsidian Moto Jacket</option><option value="indigo">Indigo Zip Bomber</option><option value="midnight">Midnight Plaid Collar Jacket</option><option value="shadow">Shadow Leather Bomber</option><option value="coal">Coal Denim Utility Jacket</option></select>
           <label for="review-rating">Penilaian</label><select id="review-rating" name="rating" required><option value="">Pilih rating</option><option value="5">★★★★★ — Sangat suka</option><option value="4">★★★★ — Suka</option><option value="3">★★★ — Cukup</option><option value="2">★★ — Kurang</option><option value="1">★ — Tidak puas</option></select>
           <label for="review-message">Ulasan</label><textarea id="review-message" name="message" rows="4" maxlength="1200" placeholder="Ceritakan pengalamanmu dengan produk ini" required></textarea>
           <button type="submit">KIRIM ULASAN</button><small>Nama dan ulasan akan langsung terlihat publik setelah dikirim.</small><p class="review-status" id="review-status" role="status" aria-live="polite"></p>
@@ -119,13 +139,13 @@
     <div class="copyright">© 2026 VOLONTÀ. All rights reserved. <span><a href="admin.html">Admin</a> · Wear the Time.</span></div>
   </footer>
 
-  <aside class="cart-panel" id="cart-panel" aria-hidden="true">
-    <div class="cart-header"><h2>Keranjang</h2><button id="close-cart" aria-label="Tutup keranjang">×</button></div>
+  <aside class="cart-panel" id="cart-panel" role="dialog" aria-modal="true" aria-labelledby="cart-title" aria-hidden="true" inert>
+    <div class="cart-header"><h2 id="cart-title">Keranjang</h2><button id="close-cart" aria-label="Tutup keranjang">×</button></div>
     <div id="cart-items"><p class="empty-cart">Keranjang Anda masih kosong.</p></div>
     <div class="cart-bottom"><div class="cart-total"><span>Total</span><strong id="cart-total">Rp0</strong></div><div class="checkout-fields"><label for="buyer-name">Nama lengkap</label><input id="buyer-name" autocomplete="name" placeholder="Nama penerima"><label for="buyer-phone">Nomor HP</label><input id="buyer-phone" autocomplete="tel" placeholder="08xxxxxxxxxx"><label for="buyer-address">Alamat lengkap</label><textarea id="buyer-address" rows="3" autocomplete="street-address" placeholder="Jalan, kecamatan, kota, provinsi, kode pos"></textarea></div><button id="checkout" class="checkout-button">CHECKOUT VIA WHATSAPP</button><p id="checkout-message" class="checkout-message" role="status" aria-live="polite" hidden></p><small>Admin akan mengonfirmasi stok, ongkir, dan total pembayaran melalui WhatsApp.</small></div>
   </aside>
   <div class="overlay" id="overlay"></div>
-  <div class="guide-modal" id="guide-modal" aria-hidden="true"><div class="guide-card"><button class="guide-close" id="guide-close" aria-label="Tutup">×</button><p class="eyebrow">VOLONTÀ FIT GUIDE</p><h2 id="guide-title">SIZE GUIDE</h2><p class="guide-subtitle">Ukuran produk dalam sentimeter (cm). Estimasi TB/BB adalah panduan awal; bentuk tubuh dan preferensi fit dapat memengaruhi pilihan.</p><div id="guide-table"></div><p class="guide-note">Cara ukur: lingkar dada diukur mengelilingi bagian dada terlebar; lebar bahu dari ujung bahu ke ujung bahu; panjang jaket dari titik bahu dekat leher ke ujung bawah jaket. Jika berada di antara dua ukuran, pertimbangkan ukuran lebih besar untuk fit lebih longgar.</p></div></div>
+  <div class="guide-modal" id="guide-modal" role="dialog" aria-modal="true" aria-labelledby="guide-title" aria-hidden="true" inert><div class="guide-card"><button class="guide-close" id="guide-close" aria-label="Tutup panduan ukuran">×</button><p class="eyebrow">VOLONTÀ FIT GUIDE</p><h2 id="guide-title">SIZE GUIDE</h2><p class="guide-subtitle">Angka ukuran pada panduan ini merupakan estimasi awal dan perlu dicocokkan dengan sampel fisik. TB/BB juga panduan awal; bentuk tubuh dan preferensi fit dapat memengaruhi pilihan.</p><div id="guide-table"></div><p class="guide-note">Cara ukur: lingkar dada diukur mengelilingi bagian dada terlebar; lebar bahu dari ujung bahu ke ujung bahu; panjang jaket dari titik bahu dekat leher ke ujung bawah jaket. Jika berada di antara dua ukuran, pertimbangkan ukuran lebih besar untuk fit lebih longgar.</p></div></div>
   <script src="supabase-config.js"></script>
   <script src="auth.js"></script>
   <script src="script.js?v=customer-orders-20261107"></script>

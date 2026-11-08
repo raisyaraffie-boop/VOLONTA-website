@@ -1,12 +1,22 @@
 const catalog={
  denim:{name:"VOLONTÀ Denim Jacket",price:399000},
  blouson:{name:"VOLONTÀ Asymmetric Blouson",price:499000},
- leather:{name:"VOLONTÀ Leather Jacket",price:549000}
+ leather:{name:"VOLONTÀ Leather Jacket",price:549000},
+ obsidian:{name:"VOLONTÀ Obsidian Moto Jacket",price:459000},
+ indigo:{name:"VOLONTÀ Indigo Zip Bomber",price:429000},
+ midnight:{name:"VOLONTÀ Midnight Plaid Collar Jacket",price:399000},
+ shadow:{name:"VOLONTÀ Shadow Leather Bomber",price:489000},
+ coal:{name:"VOLONTÀ Coal Denim Utility Jacket",price:379000}
 };
 const sizes={
  denim:{title:"DENIM JACKET",rows:[["S",100,44,63,"160–168 cm","48–55 kg"],["M",104,46,65,"165–173 cm","55–63 kg"],["L",108,48,67,"170–178 cm","63–72 kg"],["XL",112,50,69,"175–185 cm","72–82 kg"]]},
  blouson:{title:"ASYMMETRIC BLOUSON",rows:[["S",104,45,62,"160–168 cm","48–55 kg"],["M",108,47,64,"165–173 cm","55–63 kg"],["L",112,49,66,"170–178 cm","63–72 kg"],["XL",116,51,68,"175–185 cm","72–82 kg"]]},
- leather:{title:"LEATHER JACKET",rows:[["S",102,44,63,"160–168 cm","48–55 kg"],["M",106,46,65,"165–173 cm","55–63 kg"],["L",110,48,67,"170–178 cm","63–72 kg"],["XL",114,50,69,"175–185 cm","72–82 kg"]]}
+ leather:{title:"LEATHER JACKET",rows:[["S",102,44,63,"160–168 cm","48–55 kg"],["M",106,46,65,"165–173 cm","55–63 kg"],["L",110,48,67,"170–178 cm","63–72 kg"],["XL",114,50,69,"175–185 cm","72–82 kg"]]},
+ obsidian:{title:"OBSIDIAN MOTO JACKET",rows:[["S",104,46,62,"160–168 cm","48–55 kg"],["M",108,48,64,"165–173 cm","55–63 kg"],["L",112,50,66,"170–178 cm","63–72 kg"],["XL",116,52,68,"175–185 cm","72–82 kg"]]},
+ indigo:{title:"INDIGO ZIP BOMBER",rows:[["S",108,48,59,"160–168 cm","48–55 kg"],["M",112,50,61,"165–173 cm","55–63 kg"],["L",116,52,63,"170–178 cm","63–72 kg"],["XL",120,54,65,"175–185 cm","72–82 kg"]]},
+ midnight:{title:"MIDNIGHT PLAID COLLAR JACKET",rows:[["S",106,46,64,"160–168 cm","48–55 kg"],["M",110,48,66,"165–173 cm","55–63 kg"],["L",114,50,68,"170–178 cm","63–72 kg"],["XL",118,52,70,"175–185 cm","72–82 kg"]]},
+ shadow:{title:"SHADOW LEATHER BOMBER",rows:[["S",104,46,58,"160–168 cm","48–55 kg"],["M",108,48,60,"165–173 cm","55–63 kg"],["L",112,50,62,"170–178 cm","63–72 kg"],["XL",116,52,64,"175–185 cm","72–82 kg"]]},
+ coal:{title:"COAL DENIM UTILITY JACKET",rows:[["S",102,44,62,"160–168 cm","48–55 kg"],["M",106,46,64,"165–173 cm","55–63 kg"],["L",110,48,66,"170–178 cm","63–72 kg"],["XL",114,50,68,"175–185 cm","72–82 kg"]]}
 };
 function loadCart(){
  try{
@@ -27,9 +37,12 @@ function renderCart(){
  document.getElementById("cart-total").textContent=rupiah(total);
  host.querySelectorAll("[data-remove]").forEach(b=>b.addEventListener("click",()=>{cart.splice(Number(b.dataset.remove),1);save();}));
 }
-function toggleCart(open){document.getElementById("cart-panel").classList.toggle("open",open);document.getElementById("cart-panel").setAttribute("aria-hidden",String(!open));document.getElementById("overlay").classList.toggle("show",open);}
+let activeDialog=null,dialogReturnFocus=null;
+function openDialog(dialog,returnFocus){if(activeDialog)closeDialog(activeDialog,false);activeDialog=dialog;dialogReturnFocus=returnFocus||document.activeElement;dialog.inert=false;dialog.setAttribute("aria-hidden","false");if(dialog===document.getElementById("cart-panel")){dialog.classList.add("open");document.getElementById("overlay").classList.add("show");}else dialog.classList.add("open");dialog.querySelector("button")?.focus();}
+function closeDialog(dialog,restoreFocus=true){if(!dialog||dialog!==activeDialog)return;dialog.classList.remove("open");dialog.setAttribute("aria-hidden","true");dialog.inert=true;if(dialog===document.getElementById("cart-panel"))document.getElementById("overlay").classList.remove("show");activeDialog=null;const target=dialogReturnFocus;dialogReturnFocus=null;if(restoreFocus&&target?.isConnected)target.focus();}
+function toggleCart(open,trigger){const panel=document.getElementById("cart-panel");if(open)openDialog(panel,trigger||document.querySelector(".cart-trigger"));else closeDialog(panel);}
 function showCheckoutMessage(text,type="error"){const node=document.getElementById("checkout-message");node.textContent=text;node.className=`checkout-message ${type}`;node.hidden=!text;}
-document.querySelectorAll(".add-button").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.product;const select=document.getElementById(`size-${k}`);const error=select.closest(".product-actions").querySelector(".size-error");if(!select.value){if(error)error.hidden=false;select.setAttribute("aria-invalid","true");select.focus();return;}if(error)error.hidden=true;select.removeAttribute("aria-invalid");const existing=cart.find(x=>x.product===k&&x.size===select.value);if(existing)existing.qty++;else cart.push({product:k,size:select.value,qty:1});save();toggleCart(true);}));
+document.querySelectorAll(".add-button").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.product;const select=document.getElementById(`size-${k}`);const error=select.closest(".product-actions").querySelector(".size-error");if(!select.value){if(error)error.hidden=false;select.setAttribute("aria-invalid","true");select.focus();return;}if(error)error.hidden=true;select.removeAttribute("aria-invalid");const existing=cart.find(x=>x.product===k&&x.size===select.value);if(existing)existing.qty++;else cart.push({product:k,size:select.value,qty:1});save();toggleCart(true,b);}));
 document.querySelectorAll(".size-select").forEach(select=>select.addEventListener("change",()=>{select.removeAttribute("aria-invalid");const error=select.closest(".product-actions").querySelector(".size-error");if(error)error.hidden=true;}));
 document.querySelector(".cart-trigger").addEventListener("click",()=>toggleCart(true));
 document.getElementById("close-cart").addEventListener("click",()=>toggleCart(false));
@@ -60,16 +73,18 @@ document.getElementById("checkout").addEventListener("click",async()=>{
  }catch(error){if(waWindow)waWindow.close();showCheckoutMessage(error.message||"Pesanan gagal disimpan.");}
  finally{button.disabled=false;button.textContent="CHECKOUT VIA WHATSAPP";}})();
 });
-const menu=document.querySelector(".menu-toggle");menu.addEventListener("click",()=>{const nav=document.querySelector(".main-nav");nav.classList.toggle("open");menu.setAttribute("aria-expanded",String(nav.classList.contains("open")));});
-document.querySelectorAll(".main-nav a").forEach(a=>a.addEventListener("click",()=>document.querySelector(".main-nav").classList.remove("open")));
-function openGuide(key){const g=sizes[key];document.getElementById("guide-title").textContent=g.title+" — SIZE GUIDE";document.getElementById("guide-table").innerHTML=`<div class="table-scroll"><table><thead><tr><th>Size</th><th>Lingkar dada</th><th>Lebar bahu</th><th>Panjang</th><th>TB</th><th>BB</th></tr></thead><tbody>${g.rows.map(r=>`<tr>${r.map(v=>`<td>${v}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;document.getElementById("guide-modal").classList.add("open");document.getElementById("guide-modal").setAttribute("aria-hidden","false");}
-document.querySelectorAll("[data-guide]").forEach(b=>b.addEventListener("click",()=>openGuide(b.dataset.guide)));
-document.getElementById("guide-close").addEventListener("click",()=>{document.getElementById("guide-modal").classList.remove("open");document.getElementById("guide-modal").setAttribute("aria-hidden","true");});
+const menu=document.querySelector(".menu-toggle");menu.addEventListener("click",()=>{const nav=document.querySelector(".main-nav");const isOpen=nav.classList.toggle("open");menu.setAttribute("aria-expanded",String(isOpen));menu.setAttribute("aria-label",isOpen?"Tutup navigasi":"Buka navigasi");});
+document.querySelectorAll(".main-nav a").forEach(a=>a.addEventListener("click",()=>{const nav=document.querySelector(".main-nav");nav.classList.remove("open");menu.setAttribute("aria-expanded","false");menu.setAttribute("aria-label","Buka navigasi");}));
+function openGuide(key,trigger){const g=sizes[key];document.getElementById("guide-title").textContent=g.title+" — SIZE GUIDE";document.getElementById("guide-table").innerHTML=`<div class="table-scroll"><table><thead><tr><th>Size</th><th>Lingkar dada</th><th>Lebar bahu</th><th>Panjang</th><th>TB</th><th>BB</th></tr></thead><tbody>${g.rows.map(r=>`<tr>${r.map(v=>`<td>${v}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;openDialog(document.getElementById("guide-modal"),trigger);}
+document.querySelectorAll("[data-guide]").forEach(b=>b.addEventListener("click",()=>openGuide(b.dataset.guide,b)));
+document.getElementById("guide-close").addEventListener("click",()=>closeDialog(document.getElementById("guide-modal")));
+document.getElementById("guide-modal").addEventListener("click",event=>{if(event.target===event.currentTarget)closeDialog(event.currentTarget);});
+document.addEventListener("keydown",event=>{if(event.key==="Escape"&&activeDialog){event.preventDefault();closeDialog(activeDialog);return;}if(event.key!=="Tab"||!activeDialog)return;const focusable=[...activeDialog.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])')].filter(el=>!el.hidden);if(!focusable.length){event.preventDefault();return;}const first=focusable[0],last=focusable[focusable.length-1];if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}});
 const reviewForm=document.getElementById("review-form");
 const reviewList=document.getElementById("reviews-list");
 const reviewStatus=document.getElementById("review-status");
 const reviewConfig=window.VOLONTA_SUPABASE_CONFIG||{};
-const productLabels={denim:"Denim Jacket",blouson:"Asymmetric Blouson",leather:"Leather Jacket"};
+const productLabels={denim:"Denim Jacket",blouson:"Asymmetric Blouson",leather:"Leather Jacket",obsidian:"Obsidian Moto Jacket",indigo:"Indigo Zip Bomber",midnight:"Midnight Plaid Collar Jacket",shadow:"Shadow Leather Bomber",coal:"Coal Denim Utility Jacket"};
 function setReviewStatus(message,type=""){reviewStatus.textContent=message;reviewStatus.className=`review-status ${type}`;}
 function renderPublicReviews(reviews){
  reviewList.replaceChildren();

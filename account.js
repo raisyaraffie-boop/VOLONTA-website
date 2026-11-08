@@ -1,6 +1,6 @@
 const statusLabels={new:"Menunggu konfirmasi admin",awaiting_payment:"Menunggu pembayaran",paid:"Pembayaran diterima",processing:"Sedang diproses",shipped:"Dalam pengiriman",completed:"Selesai",rejected:"Pesanan dibatalkan"};
-const productNames={denim:"VOLONTÀ Denim Jacket",blouson:"VOLONTÀ Asymmetric Blouson",leather:"VOLONTÀ Leather Jacket"};
-const prices={denim:399000,blouson:499000,leather:549000};
+const productNames={denim:"VOLONTÀ Denim Jacket",blouson:"VOLONTÀ Asymmetric Blouson",leather:"VOLONTÀ Leather Jacket",obsidian:"VOLONTÀ Obsidian Moto Jacket",indigo:"VOLONTÀ Indigo Zip Bomber",midnight:"VOLONTÀ Midnight Plaid Collar Jacket",shadow:"VOLONTÀ Shadow Leather Bomber",coal:"VOLONTÀ Coal Denim Utility Jacket"};
+const prices={denim:399000,blouson:499000,leather:549000,obsidian:459000,indigo:429000,midnight:399000,shadow:489000,coal:379000};
 const rupiah=value=>"Rp"+Number(value||0).toLocaleString("id-ID");
 const escapeHtml=value=>String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
 const authPanel=document.getElementById("auth-panel"),ordersPanel=document.getElementById("orders-panel"),form=document.getElementById("account-form"),formMessage=document.getElementById("form-message"),ordersMessage=document.getElementById("orders-message"),ordersList=document.getElementById("orders-list");

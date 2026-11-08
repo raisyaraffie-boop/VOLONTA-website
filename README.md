@@ -14,6 +14,8 @@ Siapa pun dapat mengirim ulasan tanpa kode pembelian. Supaya semua pengunjung me
 
 Jika project sudah menggunakan schema lama dengan moderasi `pending`, jalankan `supabase/auto-approve-reviews.sql` untuk mengaktifkan persetujuan otomatis.
 
+Jika katalog produk berubah, jalankan ulang `supabase/schema.sql` di SQL Editor agar validasi produk pada ulasan mendukung katalog terbaru.
+
 Tabel hanya mengizinkan pengunjung membaca ulasan berstatus `approved` dan mengirim ulasan baru berstatus `approved`. Pengunjung tidak dapat mengubah atau menghapus ulasan melalui website.
 
 ## Pesanan dan halaman admin

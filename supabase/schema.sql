@@ -3,7 +3,7 @@
 create table if not exists public.reviews (
   id uuid primary key default gen_random_uuid(),
   reviewer_name text not null check (char_length(reviewer_name) between 1 and 60),
-  product_key text not null check (product_key in ('denim', 'blouson', 'leather')),
+  product_key text not null check (product_key in ('denim', 'blouson', 'leather', 'obsidian', 'indigo', 'midnight', 'shadow', 'coal')),
   rating smallint not null check (rating between 1 and 5),
   body text not null check (char_length(body) between 1 and 1200),
   status text not null default 'approved' check (status in ('pending', 'approved', 'hidden')),
@@ -11,6 +11,8 @@ create table if not exists public.reviews (
 );
 
 alter table public.reviews alter column status set default 'approved';
+alter table public.reviews drop constraint if exists reviews_product_key_check;
+alter table public.reviews add constraint reviews_product_key_check check (product_key in ('denim', 'blouson', 'leather', 'obsidian', 'indigo', 'midnight', 'shadow', 'coal'));
 alter table public.reviews drop constraint if exists reviews_status_check;
 alter table public.reviews add constraint reviews_status_check check (status in ('pending', 'approved', 'hidden'));
 
