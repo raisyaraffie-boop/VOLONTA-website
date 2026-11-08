@@ -1,7 +1,4 @@
 const catalog={
- denim:{name:"VOLONTÀ Denim Jacket",price:399000},
- blouson:{name:"VOLONTÀ Asymmetric Blouson",price:499000},
- leather:{name:"VOLONTÀ Leather Jacket",price:549000},
  obsidian:{name:"VOLONTÀ Obsidian Moto Jacket",price:459000},
  indigo:{name:"VOLONTÀ Indigo Zip Bomber",price:429000},
  midnight:{name:"VOLONTÀ Midnight Plaid Collar Jacket",price:399000},
@@ -9,9 +6,6 @@ const catalog={
  coal:{name:"VOLONTÀ Coal Denim Utility Jacket",price:379000}
 };
 const sizes={
- denim:{title:"DENIM JACKET",rows:[["S",100,44,63,"160–168 cm","48–55 kg"],["M",104,46,65,"165–173 cm","55–63 kg"],["L",108,48,67,"170–178 cm","63–72 kg"],["XL",112,50,69,"175–185 cm","72–82 kg"]]},
- blouson:{title:"ASYMMETRIC BLOUSON",rows:[["S",104,45,62,"160–168 cm","48–55 kg"],["M",108,47,64,"165–173 cm","55–63 kg"],["L",112,49,66,"170–178 cm","63–72 kg"],["XL",116,51,68,"175–185 cm","72–82 kg"]]},
- leather:{title:"LEATHER JACKET",rows:[["S",102,44,63,"160–168 cm","48–55 kg"],["M",106,46,65,"165–173 cm","55–63 kg"],["L",110,48,67,"170–178 cm","63–72 kg"],["XL",114,50,69,"175–185 cm","72–82 kg"]]},
  obsidian:{title:"OBSIDIAN MOTO JACKET",rows:[["S",104,46,62,"160–168 cm","48–55 kg"],["M",108,48,64,"165–173 cm","55–63 kg"],["L",112,50,66,"170–178 cm","63–72 kg"],["XL",116,52,68,"175–185 cm","72–82 kg"]]},
  indigo:{title:"INDIGO ZIP BOMBER",rows:[["S",108,48,59,"160–168 cm","48–55 kg"],["M",112,50,61,"165–173 cm","55–63 kg"],["L",116,52,63,"170–178 cm","63–72 kg"],["XL",120,54,65,"175–185 cm","72–82 kg"]]},
  midnight:{title:"MIDNIGHT PLAID COLLAR JACKET",rows:[["S",106,46,64,"160–168 cm","48–55 kg"],["M",110,48,66,"165–173 cm","55–63 kg"],["L",114,50,68,"170–178 cm","63–72 kg"],["XL",118,52,70,"175–185 cm","72–82 kg"]]},
